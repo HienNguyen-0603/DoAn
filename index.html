@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Era Platform UI Interface</title>
+    <style>
+        :root {
+            --bg-color: #111827; /* Màu nền tối đặc trưng của Era */
+            --panel-bg: #1f2937;
+            --neon-green: #10b981; /* Xanh Emerald của Era */
+            --text-main: #f3f4f6;
+            --text-dim: #9ca3af;
+            --border-color: #374151;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            user-select: none;
+        }
+
+        /* Container cho 3 nút A, B, C */
+        .button-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-era {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px; /* Bo góc kiểu hiện đại */
+            border: 1px solid var(--border-color);
+            background: var(--panel-bg);
+            color: var(--text-main);
+            font-size: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hiệu ứng khi được chọn (Active) */
+        .btn-era.active {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-era:hover:not(.active) {
+            border-color: #4b5563;
+            background: #262f3f;
+        }
+
+        /* Cấu trúc Text Box kiểu Era Platform */
+        .era-textbox-container {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-weight: 500;
+            padding-left: 4px;
+        }
+
+        .era-input {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #0b0f1a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .era-input:focus {
+            border-color: var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-group">
+        <button class="btn-era" onclick="selectButton(this)">A</button>
+        <button class="btn-era" onclick="selectButton(this)">B</button>
+        <button class="btn-era" onclick="selectButton(this)">C</button>
+    </div>
+
+    <div class="era-textbox-container">
+        <span class="label">VALUE MONITOR</span>
+        <input type="text" class="era-input" id="era-output" placeholder="Waiting..." readonly>
+    </div>
+
+    <script>
+        function selectButton(el) {
+            const isActive = el.classList.contains('active');
+            const display = document.getElementById('era-output');
+            
+            // Xóa trạng thái của các nút khác
+            document.querySelectorAll('.btn-era').forEach(btn => btn.classList.remove('active'));
+
+            if (!isActive) {
+                // Kích hoạt nút hiện tại
+                el.classList.add('active');
+                // Hiển thị giá trị lên Text Box
+                display.value = "Selected: " + el.innerText;
+            } else {
+                // Tắt nếu nhấn lại lần nữa
+                display.value = "";
+            }
+        }
+    </script>
+</body>
+</html>
